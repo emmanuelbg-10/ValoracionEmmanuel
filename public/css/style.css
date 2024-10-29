@@ -1,8 +1,8 @@
-html{
+html {
   height: 100vh;
 }
 
-body{
+body {
   text-align: center;
   align-content: center;
   height: 100%;
@@ -13,7 +13,7 @@ body{
   margin: auto;
 }
 
-h1{
+h1 {
   font-size: 5rem;
   color: indigo;
 }
@@ -21,7 +21,7 @@ h1{
 button {
   width: 200px;
   height: 200px;
-  background: url('../img/emoji_satisfaction_meter.jpg');
+  background: url("../img/emoji_satisfaction_meter.jpg");
   background-position-y: -163px;
   border: 0;
 }
@@ -46,6 +46,24 @@ button {
   background-position-x: -786px;
 }
 
-.error{
+.error {
   color: red;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+td,
+th {
+  border: 1px solid indigo;
+  padding: 4px 10px;
+  text-align: right;
+}
+
+th {
+  background-color: indigo;
+  color: white;
+  text-align: center;
 }

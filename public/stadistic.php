@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <?php
-  $fileName = '..\data\2024_10_25_15_05.csv';
-
-  try {
-    //code...
-   
-  
-
-  
-  $content = file_get_contents($fileName);
-  $rates = explode(',', $content);
-  array_pop($rates);
-  $count = count($rates);
-  $total = array_sum($rates);
-  $avg = $total / $count;
-
-  echo $count . "<br>";
-  echo $total ."<br>";
-  echo $avg . "<br>";
-  }catch (E_WARNING $a) {
-  
-  }
-  echo substr($fileName, 8,16 );
-  ?>
+  <h1>Estadísticas</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Cantidad</th>
+        <th>Media</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      $path = '../data/';
+      $dir = opendir($path);
+      while ($fileName = readdir($dir)) {
+        // lee cada archivo del directorio.
+        //echo $fileName . "<br>";
+        if (is_file($path . $fileName)) {
+          $fileNameWithoutExtension = explode('.', $fileName)[0];
+          list($year, $month, $day, $hour, $minute) = explode('_', $fileNameWithoutExtension);
+          $date = $year . "/" . $month . "/" . $day;
+          $time = $hour . ":" . $minute;
+          $content = file_get_contents($path . $fileName);
+          $rates = explode(',', $content);
+          array_pop($rates);
+          $count = count($rates);
+          $total = 0;
+          foreach ($rates as $rate) {
+            $total += $rate;
+          }
+          $avg = $total / $count;
+          printf(
+            "<tr><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td></tr>",
+            $date,
+            $time,
+            $count,
+            $avg
+          );
+        }
+      }
+      closedir($dir);
+      ?>
+    </tbody>
+  </table>
+  </tbody>
+  </table>
 </body>
+
 </html>
