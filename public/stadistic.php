@@ -21,35 +21,17 @@
     </thead>
     <tbody>
       <?php
-      $path = '../data/';
-      $dir = opendir($path);
-      while ($fileName = readdir($dir)) {
-        // lee cada archivo del directorio.
-        //echo $fileName . "<br>";
-        if (is_file($path . $fileName)) {
-          $fileNameWithoutExtension = explode('.', $fileName)[0];
-          list($year, $month, $day, $hour, $minute) = explode('_', $fileNameWithoutExtension);
-          $date = $year . "/" . $month . "/" . $day;
-          $time = $hour . ":" . $minute;
-          $content = file_get_contents($path . $fileName);
-          $rates = explode(',', $content);
-          array_pop($rates);
-          $count = count($rates);
-          $total = 0;
-          foreach ($rates as $rate) {
-            $total += $rate;
-          }
-          $avg = $total / $count;
-          printf(
-            "<tr><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td></tr>",
-            $date,
-            $time,
-            $count,
-            $avg
-          );
-        }
+      require_once 'connection.php';
+
+      $results = $link->query('SELECT date_format(date, "%Y-%c-%d %H:%i") as dateformat, count(rate) as count, avg(rate) as avg FROM rates GROUP by dateformat');
+
+      while($rate = $results->fetch(PDO::FETCH_OBJ)){
+        list($date, $time) = explode(' ', $rate->dateformat);
+        printf("<tr><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td></tr>",
+          $date, $time, $rate->count, $rate->avg);  
       }
-      closedir($dir);
+
+      $link = null;
       ?>
     </tbody>
   </table>
