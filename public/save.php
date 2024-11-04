@@ -13,15 +13,12 @@
     echo "<h1 class='error'>No se encuentra valoracion</h1>";
   } else {
     $rate = $_POST['rate'];
-    //echo $rate;
-    $date = new DateTime();
-    $path = '../data/';
-    $rows = $link->exec("INSERT INTO rates (date, rate) VALUES (NOW(), $rate)");
-    $link = null;
+    $store->addRate($rate);
  ?>
  <h1>Gracias por tu valoracion</h1>
   <?php 
-  } ?>
+  } 
+  ?>
 
   <p><a href="index.php">volver a valorar</a></p>
   <script>

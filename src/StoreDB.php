@@ -1,5 +1,4 @@
 <?php
-
 namespace DSW\Rating;
 
 use PDO;
@@ -10,10 +9,7 @@ class StoreDB implements StoreInterface {
   public function __construct($host, $user, $password, $db)
   {
     $dsn = "mysql:host=$host;dbname=$db";
-
     $this->link = new PDO($dsn, $user, $password);
-    
-    
   }
 
   public function addRate(int $rate)
@@ -23,6 +19,7 @@ class StoreDB implements StoreInterface {
 
   public function getStadistics(): array
   {
-    return [];
+    $results = $this->link->query('SELECT date_format(date, "%Y-%c-%d") as day, date_format(date, "%H:%i") as time, count(rate)
+    return $results->fetchAll(PDO::FETCH_ASSOC);
   }
 }

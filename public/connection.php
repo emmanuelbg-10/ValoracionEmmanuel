@@ -1,10 +1,8 @@
-<?php 
-  $host = "localhost";
-  $user = "root";
-  $password = "";
-  $db = "ratingdb";
+<?php
 
-  $dsn = "mysql:host=$host;dbname=$db";
+// use DSW\Rating\StoreDB;
 
-  $link = new PDO($dsn, $user, $password);
+require '../vendor/autoload.php';
+
+$store = new Dsw\Rating\StoreDB('localhost', 'root', '', 'ratingdb');
   
