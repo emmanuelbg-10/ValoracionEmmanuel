@@ -4,7 +4,7 @@
   $password = "";
   $db = "ratingdb";
 
-  $dns = "mysql:host=$host;dbname=$db";
+  $dsn = "mysql:host=$host;dbname=$db";
 
-  $link = new PDO($dns, $user, $password);
+  $link = new PDO($dsn, $user, $password);
   
