@@ -26,7 +26,7 @@
       $stadistics = $store->getStadistics();
       foreach ($stadistics as $stat) {
         printf("<tr><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td></tr>",
-        $stat['date'], $stat['time'], $stat['count'], $stat['avg']); 
+        $stat['day'], $stat['time'], $stat['count'], $stat['avg']); 
       }
       $link = null;
       ?>
